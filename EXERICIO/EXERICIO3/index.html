@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EXERCICIO 3</title>
+</head>
+<body>
+    <H1>EXERCICIO3</H1>
+    
+    <script>
+
+        var faturamentoTotal = 0;
+        var semfaturamento = 0;
+        
+        fetch('./dados.json')
+            .then(res => res.json())
+            .then(data => {
+            console.log(data);
+            for(var i = 0; i< data.length; i++){
+                //console.log(data[i].valor)
+                if(data[i].valor === 0){
+                   semfaturamento++;
+                   //console.log(contador);
+                }
+                else{
+                    faturamentoTotal += data[i].valor;
+                    //console.log(faturamentoTotal);
+                }  
+            }
+            var menor = data[0].valor;
+            var diamenor = 0;
+            var maior = data[0].valor;
+            var diamaior = [];
+
+            console.log("Dias sem faturamento: ");
+            for(var i = 1; i < data.length; i++){
+                if(data[i].valor > maior){
+                    maior = data[i].valor;
+                    diamaior = data[i].dia;
+                }
+                if((data[i].valor < menor)&&(data[i].valor != 0)){
+                    menor = data[i].valor;
+                    diamenor = data[i].dia;
+                    
+                }
+                if(data[i].valor === 0){
+                    console.log("Dia "+data[i].dia)
+                }
+            }
+
+            console.log("O menor faturamento foi: "+menor+", no dia "+diamenor);
+            console.log("O maior faturamento foi de "+maior+", no dia "+diamaior);
+           // console.log(faturamentoTotal);
+            var media = faturamentoTotal / (data.length-semfaturamento)
+            console.log("Media mensal foi de: "+media)
+
+            var maiormedia = 0;
+            var diamaiormedia = 0;
+            var contadormaiormedia = 0;
+            console.log("Dias com faturamento maior que a media mensal:");
+            for(var i = 1; i < data.length; i++){
+                if(data[i].valor > media){
+                    console.log("Dia "+data[i].dia)
+                    contadormaiormedia++;
+                
+                }  
+            }
+            console.log("Total de dias com faturamento acima da media: "+contadormaiormedia);
+
+            
+        })
+    </script>
+</body>
+</html>
